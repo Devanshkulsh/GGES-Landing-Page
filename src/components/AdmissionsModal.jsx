@@ -21,6 +21,18 @@ export function AdmissionsModalProvider({ children }) {
   useEffect(() => {
     if (typeof window === 'undefined') return
 
+    const autoOpenTimer = window.setTimeout(() => {
+      setIsOpen(true)
+    }, 3000)
+
+    return () => {
+      window.clearTimeout(autoOpenTimer)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual'
     }
