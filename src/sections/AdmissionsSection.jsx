@@ -1,57 +1,43 @@
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { ArrowRight, Check, ChevronDown } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { Check, ChevronDown, PhoneCall } from 'lucide-react'
 import Stat from '../components/ui/Stat'
-import { reveal } from '../constants/motion'
-import { programs } from '../data/siteData'
+import AdmissionFormCard from '../components/AdmissionFormCard'
+import { useAdmissionsModal } from '../components/AdmissionsModal'
+import { courseContactOptions } from '../data/siteData'
 
 const benefits = ['Free Counseling', 'Scholarship Available', '95% Placement']
 const finalStats = [['10,000+', 'Students'], ['500+', 'Recruiters'], ['95%', 'Placement'], ['20+', 'Years']]
 
-function AdmissionForm() {
-  const [isSubmitted, setIsSubmitted] = useState(false)
-
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    setIsSubmitted(true)
-  }
-
-  return (
-    <motion.form className="apply-form" onSubmit={handleSubmit} {...reveal}>
-      <h2>{isSubmitted ? 'Thank You!' : "Apply Now - It's Free"}</h2>
-      {isSubmitted ? (
-        <div className="success-message">
-          <Check />
-          <h3>Your application has been received.</h3>
-          <p>Our admissions team will contact you shortly.</p>
-          <button type="button" className="btn primary" onClick={() => setIsSubmitted(false)}>Submit Another</button>
-        </div>
-      ) : (
-        <>
-          <label className="full">Full Name<input required name="fullName" autoComplete="name" placeholder="Enter your name" /></label>
-          <label>Phone<input required name="phone" type="tel" autoComplete="tel" placeholder="+91 82991 99937" /></label>
-          <label>Email<input required name="email" type="email" autoComplete="email" placeholder="you@email.com" /></label>
-          <label>
-            Program
-            <span className="select-wrap">
-              <select required name="program" defaultValue="">
-                <option value="" disabled>Select program</option>
-                {Object.keys(programs).map((program) => <option key={program}>{program}</option>)}
-              </select>
-              <ChevronDown />
-            </span>
-          </label>
-          <label>State<input required name="state" autoComplete="address-level1" placeholder="Your state" /></label>
-          <label>City<input required name="city" autoComplete="address-level2" placeholder="Your city" /></label>
-          <button className="form-submit full" type="submit">Start Your Admission Journey <ArrowRight /></button>
-          <small className="full privacy">By submitting, you agree to our Privacy Policy. No spam, ever.</small>
-        </>
-      )}
-    </motion.form>
-  )
-}
-
 export default function AdmissionsSection() {
+  const [isCounselorMenuOpen, setIsCounselorMenuOpen] = useState(false)
+  const counselorMenuRef = useRef(null)
+  const { openAdmissionsModal } = useAdmissionsModal()
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (counselorMenuRef.current && !counselorMenuRef.current.contains(event.target)) {
+        setIsCounselorMenuOpen(false)
+      }
+    }
+
+    const handleEscape = (event) => {
+      if (event.key === 'Escape') {
+        setIsCounselorMenuOpen(false)
+      }
+    }
+
+    if (isCounselorMenuOpen) {
+      document.addEventListener('mousedown', handleOutsideClick)
+      document.addEventListener('keydown', handleEscape)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick)
+      document.removeEventListener('keydown', handleEscape)
+    }
+  }, [isCounselorMenuOpen])
+
   return (
     <>
       <section id="admissions" className="admission-section">
@@ -67,16 +53,64 @@ export default function AdmissionsSection() {
             </div>
           </div>
         </div>
-        <AdmissionForm />
+        <AdmissionFormCard />
       </section>
 
       <section id="contact" className="final-cta dark-section">
         <span className="kicker">Your Future Awaits</span>
         <h2>Your Future Starts Here</h2>
         <p>Join thousands of students building successful careers through quality education and industry-ready training.</p>
-        <div>
-          <a className="btn primary" href="#admissions">Apply Now</a>
-          <a className="btn brand-outline" href="tel:+918299199937">Talk to Counselor</a>
+        <div className="final-cta-actions">
+          <button
+            type="button"
+            className="btn primary final-cta-button"
+            onClick={() => openAdmissionsModal()}
+          >
+            Apply Now
+          </button>
+          <div ref={counselorMenuRef} className="counselor-menu-shell">
+            <button
+              type="button"
+              className="btn brand-outline final-cta-button"
+              onClick={() => setIsCounselorMenuOpen((current) => !current)}
+              aria-expanded={isCounselorMenuOpen}
+              aria-controls="counselor-menu"
+            >
+              Talk to Counselor <ChevronDown />
+            </button>
+            <AnimatePresence>
+              {isCounselorMenuOpen && (
+                <motion.div
+                  id="counselor-menu"
+                  className="counselor-menu"
+                  initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 10, scale: 0.98 }}
+                  transition={{ duration: 0.18 }}
+                >
+                  <p className="counselor-menu-title">
+                    Choose a course line
+                  </p>
+                  <div className="counselor-menu-list">
+                    {courseContactOptions.map((option) => (
+                      <a
+                        key={option.id}
+                        className="counselor-menu-item"
+                        href={`tel:+${option.number}`}
+                        onClick={() => setIsCounselorMenuOpen(false)}
+                      >
+                        <div className="counselor-menu-copy">
+                          <strong>{option.label}</strong>
+                          <span>{option.subtitle}</span>
+                        </div>
+                        <PhoneCall size={18} />
+                      </a>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
         <div className="final-stats">
           {finalStats.map(([value, label]) => <Stat key={label} value={value} label={label} />)}

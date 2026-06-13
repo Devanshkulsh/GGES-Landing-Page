@@ -1,9 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronRight, MessageCircle, X } from 'lucide-react';
-
-// Institution WhatsApp number in international format, without '+' or spaces.
-const WHATSAPP_NUMBER = "918299199937";
+import { courseContactOptions } from '../data/siteData';
 
 const supportOptions = [
   {
@@ -41,6 +39,7 @@ const WhatsAppIcon = ({ size = 24 }) => (
 
 export default function WhatsAppWidget() {
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState(courseContactOptions[0]);
   const menuRef = useRef(null);
 
   // Close the menu if the user clicks outside of it
@@ -57,9 +56,9 @@ export default function WhatsAppWidget() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isOpen]);
 
-  const handleStartChat = (message) => {
+  const handleStartChat = (message, number = selectedCourse.number) => {
     const encodedMessage = encodeURIComponent(message);
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`, '_blank');
+    window.open(`https://wa.me/${number}?text=${encodedMessage}`, '_blank');
     setIsOpen(false);
   };
 
@@ -86,8 +85,8 @@ export default function WhatsAppWidget() {
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
             style={{ 
-              width: 'calc(100vw - 3rem)', 
-              maxWidth: '320px', 
+              width: 'min(320px, calc(100dvw - 3rem))', 
+              maxWidth: 'calc(100dvw - 3rem)', 
               backgroundColor: '#fff', 
               borderRadius: '1rem', 
               boxShadow: '0 12px 40px rgba(0,0,0,0.15)',
@@ -110,8 +109,8 @@ export default function WhatsAppWidget() {
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                 <WhatsAppIcon size={28} />
                 <div>
-                  <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 600, color: '#fff' }}>Start a Chat</h3>
-                  <p style={{ margin: 0, fontSize: '0.75rem', opacity: 0.9 }}>Typically replies instantly</p>
+                  <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 600, color: '#fff' }}>Course Support</h3>
+                  <p style={{ margin: 0, fontSize: '0.75rem', opacity: 0.9 }}>Choose a course and start chatting</p>
                 </div>
               </div>
               <button 
@@ -125,14 +124,40 @@ export default function WhatsAppWidget() {
 
             {/* Menu Options Body */}
             <div style={{ padding: '1rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              <p style={{ margin: '0 0 0.5rem 0', fontSize: '0.85rem', color: '#666', fontWeight: 500 }}>
-                How can we help you today?
+              <p style={{ margin: '0 0 0.35rem 0', fontSize: '0.85rem', color: '#666', fontWeight: 500 }}>
+                Choose your course type
+              </p>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                {courseContactOptions.map((option) => (
+                  <button
+                    key={option.id}
+                    type="button"
+                    onClick={() => setSelectedCourse(option)}
+                    style={{
+                      padding: '0.85rem 0.75rem',
+                      borderRadius: '0.85rem',
+                      border: selectedCourse.id === option.id ? '1px solid #25D366' : '1px solid #e7e7e7',
+                      backgroundColor: selectedCourse.id === option.id ? 'rgba(37, 211, 102, 0.08)' : '#fff',
+                      textAlign: 'left',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease',
+                      minWidth: 0,
+                    }}
+                  >
+                    <strong style={{ display: 'block', fontSize: '0.9rem', color: '#333', marginBottom: '0.15rem' }}>{option.label}</strong>
+                    <span style={{ display: 'block', fontSize: '0.72rem', color: '#777', lineHeight: 1.4 }}>{option.subtitle}</span>
+                  </button>
+                ))}
+              </div>
+              <p style={{ margin: '0 0 0.5rem 0', fontSize: '0.8rem', color: '#666', fontWeight: 500 }}>
+                Quick help for {selectedCourse.label.toLowerCase()}
               </p>
               
               {supportOptions.map((option) => (
                 <button
                   key={option.id}
-                  onClick={() => handleStartChat(option.message)}
+                  type="button"
+                  onClick={() => handleStartChat(`${selectedCourse.introMessage} ${option.message}`, selectedCourse.number)}
                   style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -182,7 +207,7 @@ export default function WhatsAppWidget() {
         }}
         aria-label="Open WhatsApp support"
       >
-        {isOpen ? <X size={28} /> : <WhatsAppIcon size={32} />}
+        {isOpen ? <X size={28} /> : <MessageCircle size={32} />}
       </motion.button>
     </div>
   );

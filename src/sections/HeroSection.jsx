@@ -7,9 +7,10 @@ import {
 } from "lucide-react";
 import Stat from "../components/ui/Stat";
 import { heroChips } from "../data/siteData";
+import { useAdmissionsModal } from "../components/AdmissionsModal";
 
 const heroStats = [
-  ["10,000+", "Students"],
+  ["3,000+", "Students"],
   ["500+", "Recruiters"],
   ["95%", "Placement Support"],
   ["20+", "Years of Excellence"],
@@ -18,6 +19,7 @@ const heroStats = [
 export default function HeroSection() {
   const heroHighlight = "Industry-Focused";
   const [typedHighlight, setTypedHighlight] = useState("");
+  const { openAdmissionsModal } = useAdmissionsModal();
 
   useEffect(() => {
     let cancelled = false;
@@ -58,7 +60,6 @@ export default function HeroSection() {
       style={{ 
         minHeight: "100vh", 
         height: "auto", 
-        overflow: "visible",
         paddingBottom: "3rem" 
       }}
     >
@@ -76,7 +77,6 @@ export default function HeroSection() {
 
       <div 
         className="hero-inner"
-        style={{ overflow: "visible" }} 
       >
         <motion.div
           className="hero-copy"
@@ -137,9 +137,9 @@ export default function HeroSection() {
           </motion.div>
 
           <div className="hero-actions">
-            <a className="btn primary" href="#admissions">
+            <button className="btn primary" type="button" onClick={() => openAdmissionsModal()}>
               Apply Now <ArrowRight />
-            </a>
+            </button>
             <a className="btn outline" href="#admissions">
               <Download /> Download Brochure
             </a>

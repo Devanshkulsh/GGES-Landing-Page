@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import { navigationItems } from '../../data/siteData'
 import Brand from '../ui/Brand'
+import { useAdmissionsModal } from '../AdmissionsModal'
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('home')
+  const { openAdmissionsModal } = useAdmissionsModal()
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -50,7 +52,9 @@ export default function Header() {
           </a>
         ))}
       </nav>
-      <a className="btn primary header-cta" href="#admissions">Apply Now</a>
+      <button type="button" className="btn primary header-cta" onClick={() => openAdmissionsModal()}>
+        Apply Now
+      </button>
     </header>
   )
 }

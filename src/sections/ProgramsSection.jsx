@@ -4,11 +4,13 @@ import { ArrowRight, BarChart3, Rocket, Sparkles } from "lucide-react";
 import Meter from "../components/ui/Meter";
 import SectionHeading from "../components/ui/SectionHeading";
 import { programs } from "../data/siteData";
+import { useAdmissionsModal } from "../components/AdmissionsModal";
 
 export default function ProgramsSection() {
   const [selectedProgram, setSelectedProgram] = useState("BBA");
   const program = programs[selectedProgram];
   const ProgramIcon = program.icon;
+  const { openAdmissionsModal } = useAdmissionsModal();
 
   return (
     <section id="programs" className="light-section section-pad">
@@ -79,9 +81,9 @@ export default function ProgramsSection() {
           </div>
         </div>
 
-        <a href="#admissions" className="program-apply">
+        <button type="button" className="program-apply" onClick={() => openAdmissionsModal(selectedProgram)}>
           Apply for {selectedProgram} <ArrowRight />
-        </a>
+        </button>
       </motion.div>
     </section>
   );

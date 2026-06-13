@@ -202,9 +202,9 @@ export default function AdmissionsChatbot() {
               bottom: '5rem', // Tighter to the button
               right: '1rem', // Tighter to the edge for small screens
               zIndex: 50, 
-              // FIX: Fluid width and height calculation for mobile bounds
-              width: 'calc(100vw - 2rem)', 
-              maxWidth: '380px', 
+              // FIX: Use dvw to avoid mobile viewport wobble from browser chrome changes
+              width: 'min(380px, calc(100dvw - 2rem))', 
+              maxWidth: 'calc(100dvw - 2rem)', 
               height: 'min(600px, calc(100vh - 100px))', 
               display: 'flex', 
               flexDirection: 'column', 

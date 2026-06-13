@@ -7,11 +7,14 @@ import JourneySection from './sections/JourneySection'
 import PlacementsSection from './sections/PlacementsSection'
 import ProgramsSection from './sections/ProgramsSection'
 import AdmissionsChatbot from './components/AdmissionsChatbot'
+import AdmissionsModal, { AdmissionsModalProvider } from './components/AdmissionsModal'
 import WhatsAppWidget from './components/WhatsAppWidget'
+import ScrollToTop from './components/ScrollToTop'
 
 export default function App() {
   return (
-    <>
+    <AdmissionsModalProvider>
+      <ScrollToTop />
       <Header />
       <main>
         <HeroSection />
@@ -24,6 +27,7 @@ export default function App() {
       <Footer />
       <AdmissionsChatbot />
       <WhatsAppWidget />
-    </>
+      <AdmissionsModal />
+    </AdmissionsModalProvider>
   )
 }
