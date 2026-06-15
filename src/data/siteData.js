@@ -108,23 +108,25 @@ export const heroChips = [
 export const companies = ['TCS', 'Infosys', 'Wipro', 'HCL', 'Deloitte', 'HDFC Bank', 'Cipla', 'Sun Pharma', 'Amazon', 'Flipkart', 'Accenture', 'Cognizant', 'Tech Mahindra', 'Capgemini']
 
 export const contactNumbers = {
-  professional: '918299199937',
-  pharmacy: '8429733270',
+  professional: ['9792909888', '9792909666'],
+  pharmacy: ['9792909222'],
 }
 
 export const courseContactOptions = [
   {
     id: 'professional',
-    label: 'Professional Courses',
+    label: 'BBA, BCA, MBA, MCA',
     subtitle: 'BBA, BCA, MBA, MCA',
-    number: contactNumbers.professional,
-    introMessage: 'Hi! I want to know more about the professional courses at GGES.',
+    courses: ['BBA', 'BCA', 'MBA', 'MCA'],
+    numbers: contactNumbers.professional,
+    introMessage: 'Hi! I want to know more about BBA, BCA, MBA, or MCA admissions at GGES.',
   },
   {
     id: 'pharmacy',
-    label: 'Pharmacy Courses',
+    label: 'B.Pharm, D.Pharm',
     subtitle: 'B.Pharm and D.Pharm',
-    number: contactNumbers.pharmacy,
-    introMessage: 'Hi! I want to know more about the pharmacy courses at GGES.',
+    courses: ['B.Pharm', 'D.Pharm'],
+    numbers: contactNumbers.pharmacy,
+    introMessage: 'Hi! I want to know more about B.Pharm or D.Pharm admissions at GGES.',
   },
 ]

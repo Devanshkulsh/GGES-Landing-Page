@@ -40,6 +40,7 @@ const WhatsAppIcon = ({ size = 24 }) => (
 export default function WhatsAppWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState(courseContactOptions[0]);
+  const [selectedNumber, setSelectedNumber] = useState(courseContactOptions[0].numbers[0]);
   const menuRef = useRef(null);
 
   // Close the menu if the user clicks outside of it
@@ -56,9 +57,9 @@ export default function WhatsAppWidget() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isOpen]);
 
-  const handleStartChat = (message, number = selectedCourse.number) => {
+  const handleStartChat = (message, number = selectedNumber) => {
     const encodedMessage = encodeURIComponent(message);
-    window.open(`https://wa.me/${number}?text=${encodedMessage}`, '_blank');
+    window.open(`https://wa.me/91${number}?text=${encodedMessage}`, '_blank');
     setIsOpen(false);
   };
 
@@ -132,7 +133,10 @@ export default function WhatsAppWidget() {
                   <button
                     key={option.id}
                     type="button"
-                    onClick={() => setSelectedCourse(option)}
+                    onClick={() => {
+                      setSelectedCourse(option);
+                      setSelectedNumber(option.numbers[0]);
+                    }}
                     style={{
                       padding: '0.85rem 0.75rem',
                       borderRadius: '0.85rem',
@@ -149,6 +153,28 @@ export default function WhatsAppWidget() {
                   </button>
                 ))}
               </div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem', marginBottom: '0.45rem' }}>
+                {selectedCourse.numbers.map((number) => (
+                  <button
+                    key={number}
+                    type="button"
+                    onClick={() => setSelectedNumber(number)}
+                    style={{
+                      minHeight: '34px',
+                      padding: '0 0.75rem',
+                      borderRadius: '999px',
+                      border: selectedNumber === number ? '1px solid #25D366' : '1px solid #e7e7e7',
+                      backgroundColor: selectedNumber === number ? '#25D366' : '#fff',
+                      color: selectedNumber === number ? '#fff' : '#333',
+                      fontSize: '0.78rem',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                    }}
+                  >
+                    {number}
+                  </button>
+                ))}
+              </div>
               <p style={{ margin: '0 0 0.5rem 0', fontSize: '0.8rem', color: '#666', fontWeight: 500 }}>
                 Quick help for {selectedCourse.label.toLowerCase()}
               </p>
@@ -157,7 +183,7 @@ export default function WhatsAppWidget() {
                 <button
                   key={option.id}
                   type="button"
-                  onClick={() => handleStartChat(`${selectedCourse.introMessage} ${option.message}`, selectedCourse.number)}
+                  onClick={() => handleStartChat(`${selectedCourse.introMessage} ${option.message}`, selectedNumber)}
                   style={{
                     display: 'flex',
                     alignItems: 'center',

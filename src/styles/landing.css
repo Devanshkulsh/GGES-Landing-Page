@@ -135,15 +135,18 @@ html::-webkit-scrollbar-corner, body::-webkit-scrollbar-corner, .admissions-moda
 .final-cta-actions { position:relative; display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:12px; margin:0 auto; }
 .final-cta-button { min-width:220px; justify-content:center; }
 .counselor-menu-shell { position:relative; display:inline-flex; }
-.counselor-menu { position:absolute; top:calc(100% + 12px); left:50%; z-index:10; width:min(100dvw - 32px, 340px); padding:12px; border-radius:18px; background:#fff; box-shadow:0 18px 45px rgba(0,0,0,.16); border:1px solid rgba(67,104,45,.12); transform:translateX(-50%); }
+.counselor-menu { position:absolute; top:calc(100% + 12px); left:50%; z-index:10; width:min(100dvw - 32px, 390px); padding:12px; border-radius:18px; background:#fff; box-shadow:0 18px 45px rgba(0,0,0,.16); border:1px solid rgba(67,104,45,.12); transform:translateX(-50%); }
 .counselor-menu-title { margin:0 0 10px; color:var(--muted); font-size:.9rem; font-weight:600; text-align:left; }
 .counselor-menu-list { display:grid; gap:10px; }
-.counselor-menu-item { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 14px; border-radius:14px; background:var(--surface-soft); border:1px solid rgba(67,104,45,.12); color:var(--text); text-decoration:none; text-align:left; transition:.2s; }
+.counselor-menu-item { display:grid; grid-template-columns:1fr; gap:10px; padding:13px 14px; border-radius:14px; background:var(--surface-soft); border:1px solid rgba(67,104,45,.12); color:var(--text); text-decoration:none; text-align:left; transition:.2s; }
 .counselor-menu-item:nth-child(2) { background:rgba(37,211,102,.08); }
 .counselor-menu-item:hover { transform:translateY(-1px); box-shadow:0 10px 20px rgba(67,104,45,.08); }
 .counselor-menu-copy { min-width:0; display:flex; flex-direction:column; gap:2px; }
 .counselor-menu-copy strong { font-size:.95rem; color:var(--ink); }
 .counselor-menu-copy span { font-size:.8rem; color:var(--muted); }
+.counselor-number-list { display:flex; flex-wrap:wrap; gap:8px; }
+.counselor-number-pill { min-height:36px; padding:0 12px; display:inline-flex; align-items:center; justify-content:center; gap:7px; border:1px solid rgba(94,150,56,.2); border-radius:999px; color:var(--deep-green); background:#fff; font-size:.86rem; font-weight:800; letter-spacing:0; transition:.2s; }
+.counselor-number-pill:hover { color:#fff; border-color:transparent; background:linear-gradient(135deg,var(--primary-dark),var(--primary)); }
 footer { min-height:110px; padding:24px 4vw; display:flex;align-items:center;justify-content:space-between;gap:30px;color:#dce9d5;background:var(--deepest-green)}footer .brand-logo{width:112px;height:64px}footer>div{display:flex;gap:30px}footer a:hover{color:var(--primary-light)}footer>span{font-size:.85rem}
 
 .chatbot-launcher { position:fixed; right:22px; bottom:22px; z-index:60; display:flex; flex-direction:column; align-items:flex-end; gap:12px; }

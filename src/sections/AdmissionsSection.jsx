@@ -93,18 +93,29 @@ export default function AdmissionsSection() {
                   </p>
                   <div className="counselor-menu-list">
                     {courseContactOptions.map((option) => (
-                      <a
+                      <div
                         key={option.id}
                         className="counselor-menu-item"
-                        href={`tel:+${option.number}`}
-                        onClick={() => setIsCounselorMenuOpen(false)}
                       >
                         <div className="counselor-menu-copy">
                           <strong>{option.label}</strong>
-                          <span>{option.subtitle}</span>
+                          <span>{option.numbers.length > 1 ? 'Choose either counseling line' : option.subtitle}</span>
                         </div>
-                        <PhoneCall size={18} />
-                      </a>
+                        <div className="counselor-number-list">
+                          {option.numbers.map((number) => (
+                            <a
+                              key={number}
+                              className="counselor-number-pill"
+                              href={`tel:+91${number}`}
+                              onClick={() => setIsCounselorMenuOpen(false)}
+                              aria-label={`Call ${option.label} counselor at ${number}`}
+                            >
+                              <PhoneCall size={15} />
+                              {number}
+                            </a>
+                          ))}
+                        </div>
+                      </div>
                     ))}
                   </div>
                 </motion.div>
