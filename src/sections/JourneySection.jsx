@@ -29,12 +29,6 @@ export default function JourneySection() {
           </motion.article>
         ))}
       </div>
-
-      <div className="journey-stats">
-        <div><Target /><strong>95%</strong><span>Placement Rate</span></div>
-        <div><Building2 /><strong>500+</strong><span>Hiring Partners</span></div>
-        <div><span className="rupee">&#8377;</span><strong>&#8377;12 LPA</strong><span>Highest Package</span></div>
-      </div>
     </section>
   )
 }

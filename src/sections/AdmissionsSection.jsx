@@ -7,7 +7,7 @@ import { useAdmissionsModal } from '../components/AdmissionsModal'
 import { courseContactOptions } from '../data/siteData'
 
 const benefits = ['Free Counseling', 'Scholarship Available', '95% Placement']
-const finalStats = [['10,000+', 'Students'], ['500+', 'Recruiters'], ['95%', 'Placement'], ['20+', 'Years']]
+const finalStats = [['3000+', 'Students'], ['500+', 'Recruiters'], ['95%', 'Placement'], ['20+', 'Years']]
 
 export default function AdmissionsSection() {
   const [isCounselorMenuOpen, setIsCounselorMenuOpen] = useState(false)
