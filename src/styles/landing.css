@@ -237,3 +237,214 @@ footer { min-height:110px; padding:24px 4vw; display:flex;align-items:center;jus
   .admissions-modal-form-shell { padding:16px 14px 14px; order:1; }
   .apply-form.compact { width:100%; }
 }
+
+.site-footer {
+  min-height:110px;
+  padding:24px 4vw;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:30px;
+  color:#dce9d5;
+  background:var(--deepest-green);
+}
+.site-footer .brand-logo {
+  width:112px;
+  height:64px;
+}
+.footer-links {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:30px;
+}
+.footer-links a {
+  color:#eef7e7;
+  font-weight:700;
+  font-size:.92rem;
+  transition:color .22s;
+}
+.site-footer > span {
+  font-size:.85rem;
+  white-space:nowrap;
+}
+.footer-bottom-strip {
+  padding:14px calc(max(4vw,28px) + 96px) 14px max(4vw,28px);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  color:#dce9d5;
+  border-top:1px solid rgba(255,255,255,.08);
+  background:linear-gradient(135deg,#142711,var(--deepest-green));
+}
+.footer-contact {
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:10px 18px;
+}
+.footer-contact-group {
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.footer-contact-group > span {
+  color:#b7dc9c;
+  font-size:.72rem;
+  font-weight:900;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+.footer-contact-group > div {
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.footer-contact a {
+  min-height:34px;
+  padding:0 12px;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:999px;
+  color:#f4faef;
+  background:rgba(255,255,255,.06);
+  font-size:.88rem;
+  font-weight:800;
+  white-space:nowrap;
+  transition:border-color .22s, background .22s, transform .22s;
+}
+.footer-contact a svg {
+  color:var(--primary-light);
+}
+.footer-links a:hover,
+.footer-credit a:hover {
+  color:var(--primary-light);
+}
+.footer-contact a:hover {
+  border-color:rgba(125,181,85,.55);
+  background:rgba(125,181,85,.14);
+  transform:translateY(-2px);
+}
+.footer-credit {
+  margin:0;
+  color:#c9dcc1;
+  font-size:.86rem;
+  line-height:1.45;
+  white-space:nowrap;
+}
+.footer-credit a {
+  color:#fff;
+  font-weight:900;
+  text-decoration:underline;
+  text-decoration-color:rgba(125,181,85,.55);
+  text-underline-offset:4px;
+}
+
+@media (max-width:900px) {
+  .site-footer {
+    flex-direction:column;
+    text-align:center;
+    gap:20px;
+    padding:30px 18px 26px;
+  }
+  .footer-links {
+    gap:15px 22px;
+  }
+  .footer-bottom-strip {
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    padding:18px 22px 104px;
+  }
+  .footer-contact {
+    justify-content:center;
+  }
+  .footer-contact-group {
+    justify-content:center;
+  }
+}
+
+@media (max-width:760px) {
+  .site-footer {
+    min-height:auto;
+  }
+  .site-footer .brand-logo {
+    width:104px;
+    height:58px;
+  }
+  .footer-links {
+    width:100%;
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;
+  }
+  .footer-links a {
+    min-height:42px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:0 10px;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:10px;
+    background:rgba(255,255,255,.04);
+  }
+  .footer-bottom-strip {
+    gap:18px;
+  }
+  .footer-contact {
+    width:min(100%,520px);
+    display:grid;
+    gap:14px;
+  }
+  .footer-contact-group {
+    display:grid;
+    justify-items:center;
+    gap:8px;
+  }
+  .footer-contact-group > div {
+    justify-content:center;
+  }
+  .footer-contact a {
+    min-height:40px;
+  }
+}
+
+@media (max-width:420px) {
+  .site-footer {
+    padding:28px 16px 24px;
+  }
+  .footer-links {
+    grid-template-columns:1fr;
+    gap:8px;
+  }
+  .footer-bottom-strip {
+    padding:18px 16px 96px;
+    gap:16px;
+  }
+  .footer-contact {
+    width:100%;
+    gap:10px;
+  }
+  .footer-contact-group {
+    width:100%;
+  }
+  .footer-contact-group > div {
+    width:100%;
+  }
+  .footer-contact a {
+    width:100%;
+    max-width:290px;
+    justify-content:center;
+  }
+  .footer-credit {
+    white-space:normal;
+    max-width:260px;
+  }
+}
