@@ -6,7 +6,7 @@ import AdmissionFormCard from './AdmissionFormCard'
 const AdmissionsModalContext = createContext(null)
 
 export function AdmissionsModalProvider({ children }) {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(true)
   const [initialProgram, setInitialProgram] = useState('')
   const hasOpenedOnScroll = useRef(false)
 
@@ -22,20 +22,19 @@ export function AdmissionsModalProvider({ children }) {
   useEffect(() => {
     if (typeof window === 'undefined') return
 
-    const autoOpenTimer = window.setTimeout(() => {
-      setIsOpen(true)
-    }, 3000)
+    const getScrollTriggerPoint = () => {
+      const sections = Array.from(document.querySelectorAll('main > section'))
+      const targetSection = sections[Math.min(3, sections.length - 1)]
 
-    return () => {
-      window.clearTimeout(autoOpenTimer)
+      if (targetSection) {
+        return targetSection.getBoundingClientRect().top + window.scrollY - Math.min(window.innerHeight * 0.35, 280)
+      }
+
+      return window.innerHeight * 3
     }
-  }, [])
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return
 
     const openAfterScroll = () => {
-      const scrollTriggerPoint = Math.min(window.innerHeight * 0.8, 650)
+      const scrollTriggerPoint = getScrollTriggerPoint()
 
       if (hasOpenedOnScroll.current || isOpen || window.scrollY < scrollTriggerPoint) {
         return
